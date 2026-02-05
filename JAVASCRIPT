@@ -1,0 +1,19 @@
+const tempEl = document.getElementById("temp");
+const conditionEl = document.getElementById("condition");
+
+// Example API (Open-Meteo)
+const url = "https://api.open-meteo.com/v1/forecast?latitude=35.95&longitude=-80.00&current=temperature_2m,weathercode";
+
+fetch(url)
+  .then(res => res.json())
+  .then(data => {
+    const temp = data.current.temperature_2m;
+    const code = data.current.weathercode;
+
+    tempEl.textContent = `Temperature: ${temp}°C`;
+    conditionEl.textContent = `Weather code: ${code}`;
+  })
+  .catch(err => {
+    tempEl.textContent = "Failed to load data";
+    console.error(err);
+  });
